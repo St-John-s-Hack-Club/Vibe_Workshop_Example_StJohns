@@ -1,0 +1,569 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Compare the sizes of the Sun and planets in our Solar System.">
+    <title>Size Comparison | Beyond the Blue</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .size-intro {
+            padding-top: 65px;
+            padding-bottom: 35px;
+        }
+
+        .comparison-panel {
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .comparison-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .comparison-controls label {
+            color: #aab7cc;
+            font-size: 0.9rem;
+        }
+
+        .comparison-controls input {
+            accent-color: #72baff;
+            width: 180px;
+            margin-left: 10px;
+        }
+
+        .planet-display {
+            min-height: 280px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 22px;
+            padding: 30px 10px 15px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .planet-item {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            cursor: pointer;
+            min-width: 65px;
+        }
+
+        .planet-circle {
+            width: var(--size);
+            height: var(--size);
+            max-width: none;
+            max-height: none;
+            min-width: 2px;
+            min-height: 2px;
+            border-radius: 50%;
+            background: var(--planet-color);
+            box-shadow: 0 0 18px var(--planet-glow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .planet-item:hover .planet-circle,
+        .planet-item.selected .planet-circle {
+            transform: scale(1.12);
+            box-shadow: 0 0 28px var(--planet-glow);
+        }
+
+        .planet-item span {
+            color: #aab7cc;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .planet-info {
+            margin-top: 30px;
+            padding: 22px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 12px;
+            min-height: 130px;
+        }
+
+        .planet-info h3 {
+            margin-bottom: 8px;
+        }
+
+        .planet-info p {
+            color: #aab7cc;
+        }
+
+        .planet-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 35px;
+            margin-top: 15px;
+        }
+
+        .planet-stats strong {
+            display: block;
+            font-size: 1.3rem;
+        }
+
+        .planet-stats span {
+            color: #aab7cc;
+            font-size: 0.8rem;
+        }
+
+        .size-note {
+            color: #8291a9;
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+
+        .comparison-selectors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .comparison-selectors select {
+            padding: 12px;
+            background: #101b2b;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+        }
+
+        .ratio-result {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #aab7cc;
+        }
+
+        @media(max-width: 600px) {
+            .comparison-panel {
+                padding: 18px;
+            }
+
+            .planet-display {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="starfield"></div>
+
+    <header class="topbar">
+        <div class="shell nav">
+            <a class="brand" href="index.html">
+                <span class="brand-mark"></span>
+                <span>BEYOND THE BLUE</span>
+            </a>
+
+            <button class="menu-toggle"
+                aria-expanded="false"
+                aria-label="Open navigation">Menu</button>
+
+            <nav class="navlinks">
+                <a href="index.html">Home</a>
+                <a href="planets.html">The planets</a>
+                <a href="humanity.html">Humanity's exploration</a>
+                <a href="outbound.html">What we sent out</a>
+                <a class="active" href="size.html">Size comparison</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="shell size-intro">
+            <div class="eyebrow">A matter of perspective</div>
+
+            <h1>Worlds of <span>different sizes.</span></h1>
+
+            <p class="lead">
+                From tiny Mercury to the enormous Sun, explore the
+                incredible differences in size between the objects
+                in our Solar System.
+            </p>
+        </section>
+
+        <section class="section">
+            <div class="shell">
+
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow">01 / Visual comparison</div>
+                        <h2>How big are the planets?</h2>
+                    </div>
+
+                    <p>
+                        Select a planet to discover its diameter
+                        and compare it with the other worlds.
+                    </p>
+                </div>
+
+                <div class="comparison-panel">
+
+                    <div class="comparison-controls">
+                        <div>
+                            <label for="scale">
+                                Display scale
+                            </label>
+                            <input type="range" id="scale"
+                                min="1" max="8" value="4">
+                        </div>
+
+                        <div>
+                            <span class="eyebrow">TRUE RELATIVE SIZES</span>
+                        </div>
+                    </div>
+
+                    <div class="planet-display" id="planetDisplay">
+                    </div>
+
+                    <p class="size-note">
+                        The diameters are proportional. Visual sizes
+                        are enlarged for readability and are not
+                        drawn at the same scale as the distances
+                        between planets.
+                    </p>
+
+                    <div class="planet-info" id="planetInfo">
+                        <div class="eyebrow">SELECT A WORLD</div>
+                        <h3>Explore the planets</h3>
+                        <p>
+                            Click on any planet above to discover
+                            more about its size.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="shell">
+
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow">02 / Direct comparison</div>
+                        <h2>Which world is bigger?</h2>
+                    </div>
+
+                    <p>
+                        Choose two Solar System objects and
+                        discover how their diameters compare.
+                    </p>
+                </div>
+
+                <div class="comparison-panel">
+
+                    <div class="comparison-selectors">
+                        <select id="objectA"></select>
+                        <span style="align-self:center">VS</span>
+                        <select id="objectB"></select>
+                    </div>
+
+                    <div class="ratio-result" id="ratioResult">
+                        Select two objects to compare.
+                    </div>
+
+                    <div id="ratioVisual"
+                        style="display:flex;align-items:flex-end;gap:30px;margin-top:30px;min-height:150px;">
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="shell">
+                <div class="banner">
+                    <div>
+                        <div class="eyebrow">03 / A different perspective</div>
+                        <h2>Earth is surprisingly small.</h2>
+                        <p>
+                            The Sun has a diameter approximately
+                            109 times greater than Earth's.
+                            Around 1.3 million Earth-sized spheres
+                            could fit inside the Sun by volume.
+                        </p>
+                    </div>
+
+                    <a class="btn btn-primary" href="planets.html">
+                        Meet the planets ↗
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="shell footer-inner">
+            <div>
+                <a class="brand" href="index.html">
+                    <span class="brand-mark"></span>
+                    <span>BEYOND THE BLUE</span>
+                </a>
+                <p style="margin:12px 0 0">
+                    A small guide to a very big neighbourhood.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Planet data: mean diameters in kilometres
+
+        const objects = [
+            {
+                name: "Sun",
+                diameter: 1392700,
+                color: "#ffbd54",
+                glow: "rgba(255,189,84,0.6)",
+                description: "The star at the centre of our Solar System. Its enormous gravitational influence keeps the planets in orbit."
+            },
+            {
+                name: "Mercury",
+                diameter: 4879,
+                color: "#a99c8b",
+                glow: "rgba(169,156,139,0.5)",
+                description: "The smallest planet in our Solar System. Mercury is a rocky world with a heavily cratered surface."
+            },
+            {
+                name: "Venus",
+                diameter: 12104,
+                color: "#e5b875",
+                glow: "rgba(229,184,117,0.5)",
+                description: "Similar in size to Earth, Venus has a thick atmosphere and an extremely hot surface."
+            },
+            {
+                name: "Earth",
+                diameter: 12742,
+                color: "#428bce",
+                glow: "rgba(66,139,206,0.6)",
+                description: "Our home planet. Earth is the only world currently known to support life."
+            },
+            {
+                name: "Mars",
+                diameter: 6779,
+                color: "#d36d4c",
+                glow: "rgba(211,109,76,0.5)",
+                description: "The Red Planet is smaller than Earth and contains the largest volcano in the Solar System."
+            },
+            {
+                name: "Jupiter",
+                diameter: 139820,
+                color: "#d4a477",
+                glow: "rgba(212,164,119,0.5)",
+                description: "The largest planet in our Solar System."
+            },
+            {
+                name: "Saturn",
+                diameter: 116460,
+                color: "#dfc48c",
+                glow: "rgba(223,196,140,0.5)",
+                description: "A gas giant famous for its spectacular ring system."
+            },
+            {
+                name: "Uranus",
+                diameter: 50724,
+                color: "#8bcbd1",
+                glow: "rgba(139,203,209,0.5)",
+                description: "An ice giant with a blue-green appearance."
+            },
+            {
+                name: "Neptune",
+                diameter: 49244,
+                color: "#4269bd",
+                glow: "rgba(66,105,189,0.5)",
+                description: "The most distant recognised planet from the Sun."
+            }
+
+        ];
+
+        const display = document.getElementById("planetDisplay");
+        const scaleSlider = document.getElementById("scale");
+        const info = document.getElementById("planetInfo");
+
+        let selectedObject = null;
+
+        // Generate the planet display
+
+        function renderPlanets() {
+            display.innerHTML = "";
+
+            const scale = Number(scaleSlider.value);
+
+            // Maximum diameter displayed in pixels
+            const maxSize = 190;
+
+            objects.forEach((object, index) => {
+
+                // Diameter is proportional to the largest object
+                const size = Math.max(
+                    3,
+                    (object.diameter / 1392700) * maxSize * scale
+                );
+
+                const item = document.createElement("div");
+                item.className = "planet-item";
+
+                if (selectedObject === index) {
+                    item.classList.add("selected");
+                }
+
+                const circle = document.createElement("div");
+                circle.className = "planet-circle";
+
+                circle.style.setProperty("--size", size + "px");
+                circle.style.setProperty("--planet-color", object.color);
+                circle.style.setProperty("--planet-glow", object.glow);
+
+                const name = document.createElement("span");
+                name.textContent = object.name;
+
+                item.appendChild(circle);
+                item.appendChild(name);
+
+                item.addEventListener("click", () => {
+                    selectedObject = index;
+                    showInfo(index);
+                    renderPlanets();
+                });
+
+                display.appendChild(item);
+            });
+        }
+
+        // Display selected object information
+
+        function showInfo(index) {
+            const object = objects[index];
+
+            info.innerHTML = `
+                <div class="eyebrow">PLANETARY PROFILE</div>
+                <h3>${object.name}</h3>
+                <p>${object.description}</p>
+
+                <div class="planet-stats">
+                    <div>
+                        <strong>${object.diameter.toLocaleString("en-US")} km</strong>
+                        <span>Mean diameter</span>
+                    </div>
+
+                    <div>
+                        <strong>${(object.diameter / 12742).toFixed(2)}×</strong>
+                        <span>Earth's diameter</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        scaleSlider.addEventListener("input", renderPlanets);
+
+        // Comparison mode
+
+        const selectA = document.getElementById("objectA");
+        const selectB = document.getElementById("objectB");
+
+        objects.forEach((object, index) => {
+            const optionA = document.createElement("option");
+            const optionB = document.createElement("option");
+
+            optionA.value = index;
+            optionB.value = index;
+
+            optionA.textContent = object.name;
+            optionB.textContent = object.name;
+
+            selectA.appendChild(optionA);
+            selectB.appendChild(optionB);
+        });
+
+        // Default comparison: Earth vs Jupiter
+
+        selectA.value = 2;
+        selectB.value = 4;
+
+        function compareObjects() {
+            const a = objects[Number(selectA.value)];
+            const b = objects[Number(selectB.value)];
+
+            const ratio = Math.max(a.diameter, b.diameter) /
+                          Math.min(a.diameter, b.diameter);
+
+            const result = document.getElementById("ratioResult");
+            const visual = document.getElementById("ratioVisual");
+
+            result.innerHTML = `
+                <strong>${a.name}</strong>:
+                ${a.diameter.toLocaleString("en-US")} km<br>
+
+                <strong>${b.name}</strong>:
+                ${b.diameter.toLocaleString("en-US")} km<br><br>
+
+                <strong>${ratio.toFixed(2)} times</strong>
+                difference in diameter.
+            `;
+
+            visual.innerHTML = "";
+
+            [a, b].forEach(object => {
+                const wrapper = document.createElement("div");
+
+                wrapper.style.display = "flex";
+                wrapper.style.flexDirection = "column";
+                wrapper.style.alignItems = "center";
+                wrapper.style.gap = "10px";
+
+                const circle = document.createElement("div");
+
+                // Both objects use the same pixel-to-km scale
+                const size = Math.max(
+                    3,
+                    object.diameter / Math.max(a.diameter, b.diameter) * 130
+                );
+
+                circle.style.width = size + "px";
+                circle.style.height = size + "px";
+                circle.style.borderRadius = "50%";
+                circle.style.background = object.color;
+                circle.style.boxShadow = `0 0 18px ${object.glow}`;
+
+                const label = document.createElement("span");
+                label.textContent = object.name;
+
+                wrapper.appendChild(circle);
+                wrapper.appendChild(label);
+
+                visual.appendChild(wrapper);
+            });
+        }
+
+        selectA.addEventListener("change", compareObjects);
+        selectB.addEventListener("change", compareObjects);
+
+        // Initial rendering
+
+        renderPlanets();
+        compareObjects();
+
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

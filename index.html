@@ -1,9 +1,125 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="An interactive introduction to our Solar System, space exploration and humanity's spacecraft."><title>Explore the Solar System | Beyond the Blue</title><link rel="stylesheet" href="style.css"></head>
-<body><div class="starfield"></div><header class="topbar"><div class="shell nav"><a class="brand" href="index.html"><span class="brand-mark"></span><span>BEYOND THE BLUE</span></a><button class="menu-toggle" aria-expanded="false" aria-label="Open navigation">Menu</button><nav class="navlinks"><a class="active" href="index.html">Home</a><a class="" href="planets.html">The planets</a><a class="" href="humanity.html">Humanity's exploration</a><a class="" href="outbound.html">What we sent out</a></nav></div></header>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport"
+            content="width=device-width, initial-scale=1"><meta
+            name="description"
+            content="An interactive introduction to our Solar System, space exploration and humanity's spacecraft."><title>Explore
+            the Solar System | Beyond the Blue</title><link rel="stylesheet"
+            href="style.css"></head>
+    <body><div class="starfield"></div><header class="topbar"><div
+                class="shell nav"><a class="brand" href="index.html"><span
+                        class="brand-mark"></span><span>BEYOND THE
+                        BLUE</span></a><button class="menu-toggle"
+                    aria-expanded="false"
+                    aria-label="Open navigation">Menu</button><nav
+                    class="navlinks"><a class="active"
+                        href="index.html">Home</a><a class
+                        href="planets.html">The planets</a><a class
+                        href="humanity.html">Humanity's exploration</a><a class
+                        href="outbound.html">What we sent
+                        out</a>
+                    <a class href="size.html">Size comparison</a></nav></div></header>
 
-<main><section class="shell hero"><div class="hero-copy"><div class="eyebrow">A field guide to our cosmic neighbourhood</div><h1>One star.<br><span>Eight planets.</span><br>Endless wonder.</h1><p class="lead">Our Solar System is more than a collection of planets. It is a dynamic family of worlds, moons, rings, spacecraft and mysteries waiting to be explored.</p><div class="actions"><a class="btn btn-primary" href="planets.html">Explore the planets <span>↗</span></a><a class="btn btn-ghost" href="humanity.html">See what we're doing</a></div><div class="stat-row"><div class="stat"><strong>4.6B</strong><span>years since the Solar System formed</span></div><div class="stat"><strong>8</strong><span>recognised planets</span></div><div class="stat"><strong>1</strong><span>known home for life</span></div></div></div><div class="hero-art" aria-label="Stylised illustration of the Sun and planets"><div class="orbit one"><i class="orb a"></i></div><div class="orbit two"><i class="orb b"></i></div><div class="orbit three"><i class="orb c"></i></div><div class="sun"></div><div class="orbit-label">NOT TO SCALE · CONCEPTUAL VIEW</div></div></section>
-<section class="section"><div class="shell"><div class="section-head"><div><div class="eyebrow">Start your journey</div><h2>Four ways to explore</h2></div><p>From the worlds orbiting our Sun to the machines travelling beyond them, discover the story of our place in space.</p></div><div class="grid"><article class="card"><div class="eyebrow">01 / The neighbourhood</div><h3>Meet the planets</h3><p>Rocky worlds, enormous gas giants and distant ice giants. Discover what makes each planet unique.</p><a class="card-link" href="planets.html">Explore all eight →</a></article><article class="card"><div class="eyebrow">02 / The explorers</div><h3>Humanity out there</h3><p>Learn how astronauts, scientists and robotic explorers investigate space and prepare for the future.</p><a class="card-link" href="humanity.html">Discover our missions →</a></article><article class="card"><div class="eyebrow">03 / The messengers</div><h3>Messages to the cosmos</h3><p>Meet the spacecraft we have sent on journeys across the Solar System—and beyond the Sun's influence.</p><a class="card-link" href="outbound.html">Follow their journeys →</a></article></div></div></section>
-<section class="section"><div class="shell"><div class="banner"><div><div class="eyebrow">A useful perspective</div><h2>Space is bigger than it looks.</h2><p>Even light takes more than four hours to travel from the Sun to Neptune. The distances between worlds are vast, and our spacecraft cross them one careful kilometre at a time.</p></div><a class="btn btn-primary" href="planets.html">Begin exploring ↗</a></div></div></section></main>
+        <main><section class="shell hero"><div class="hero-copy"><div
+                        class="eyebrow">A field guide to our cosmic
+                        neighbourhood</div><h1>One star.<br><span>Eight
+                            planets.</span><br>Endless wonder.</h1><p
+                        class="lead">Our Solar System is more than a collection
+                        of planets. It is a dynamic family of worlds, moons,
+                        rings, spacecraft and mysteries waiting to be
+                        explored.</p><div class="actions"><a
+                            class="btn btn-primary" href="planets.html">Explore
+                            the planets <span>↗</span></a><a
+                            class="btn btn-ghost" href="humanity.html">See what
+                            we're doing</a></div><div class="stat-row"><div
+                            class="stat"><strong>4.6B</strong><span>years since
+                                the Solar System formed</span></div><div
+                            class="stat"><strong>8</strong><span>recognised
+                                planets</span></div><div
+                            class="stat"><strong>1</strong><span>known home for
+                                life</span></div></div></div><div
+                    class="hero-art"
+                    aria-label="Stylised illustration of the Sun and planets"><div
+                        class="orbit one"><i class="orb a" ></i></div><div
+                        class="orbit two"><i class="orb b"></i></div><div
+                        class="orbit three"><i class="orb c"></i></div><div
+                        class="sun"></div><div class="orbit-label">NOT TO SCALE
+                        · CONCEPTUAL VIEW</div></div>
+                    <script>
+                        const orbits = document.querySelectorAll(".orbit");
 
-<footer class="footer"><div class="shell footer-inner"><div><a class="brand" href="index.html"><span class="brand-mark"></span><span>BEYOND THE BLUE</span></a><p style="margin:12px 0 0">A small guide to a very big neighbourhood.</p></div><span>Educational project · Last updated November 2026</span></div></footer><script src="script.js"></script></body></html>
+                        const speeds = [0.01, 0.007, 0.004];
+
+                        const angles = [0, 120, 240];
+
+                        function animate() {
+                            orbits.forEach((orbit, index) => {
+                                const planet = orbit.querySelector(".orb");
+
+                                if (!planet) return;
+
+                                const width = orbit.clientWidth;
+                                const height = orbit.clientHeight;
+
+                                // Update angle
+                                angles[index] += speeds[index];
+
+                                // Calculate position along the orbit
+                                const x = (width / 2) * Math.cos(angles[index]);
+                                const y = (height / 2) * Math.sin(angles[index]);
+
+                                // Position planet
+                                planet.style.left = `calc(50% + ${x}px)`;
+                                planet.style.top = `calc(50% + ${y}px)`;
+                            });
+
+                            requestAnimationFrame(animate);
+                        }
+
+                        animate();
+                    </script></section>
+            <section class="section"><div class="shell"><div
+                        class="section-head"><div><div class="eyebrow">Start
+                                your journey</div><h2>Three ways to
+                                explore</h2></div><p>From the worlds orbiting
+                            our Sun to the machines travelling beyond them,
+                            discover the story of our place in
+                            space.</p></div><div class="grid"><article
+                            class="card"><div class="eyebrow">01 / The
+                                neighbourhood</div><h3>Meet the
+                                planets</h3><p>Rocky worlds, enormous gas giants
+                                and distant ice giants. Discover what makes each
+                                planet unique.</p><a class="card-link"
+                                href="planets.html">Explore all eight
+                                →</a></article><article class="card"><div
+                                class="eyebrow">02 / The
+                                explorers</div><h3>Humanity out
+                                there</h3><p>Learn how astronauts, scientists
+                                and robotic explorers investigate space and
+                                prepare for the future.</p><a class="card-link"
+                                href="humanity.html">Discover our missions
+                                →</a></article><article class="card"><div
+                                class="eyebrow">03 / The
+                                messengers</div><h3>Messages to the
+                                cosmos</h3><p>Meet the spacecraft we have sent
+                                on journeys across the Solar System—and beyond
+                                the Sun's influence.</p><a class="card-link"
+                                href="outbound.html">Follow their journeys
+                                →</a></article></div></div></section>
+            <section class="section"><div class="shell"><div
+                        class="banner"><div><div class="eyebrow">A useful
+                                perspective</div><h2>Space is bigger than it
+                                looks.</h2><p>Even light takes more than four
+                                hours to travel from the Sun to Neptune. The
+                                distances between worlds are vast, and our
+                                spacecrafts crosses them one careful kilometre at a
+                                time.</p></div><a class="btn btn-primary"
+                            href="planets.html">Begin exploring
+                            ↗</a></div></div></section></main>
+
+        <footer class="footer"><div class="shell footer-inner"><div><a
+                        class="brand" href="index.html"><span
+                            class="brand-mark"></span><span>BEYOND THE
+                            BLUE</span></a><p style="margin:12px 0 0">A small
+                        guide to a very big
+                        neighbourhood.</p></div></div></footer><script
+            src="script.js"></script></body></html>
